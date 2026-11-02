@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Campus Management System</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/dashboard}">
+        <span>🏛️</span> Campus Management System
+    </a>
+    <ul class="navbar-nav">
+        <li><a th:href="@{/dashboard}" class="active">Dashboard</a></li>
+        <li><a th:href="@{/students}">Students</a></li>
+        <li><a th:href="@{/courses}">Courses</a></li>
+        <li><a th:href="@{/departments}">Departments</a></li>
+        <li><a th:href="@{/faculty}">Faculty</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="header-row">
+        <div>
+            <h1 class="page-title">Campus Overview</h1>
+            <p class="page-subtitle">Real-time statistics across all campus academic and administrative modules</p>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-header">
+                <span>Total Students</span>
+                <span>🎓</span>
+            </div>
+            <div class="stat-value" th:text="${studentCount}">0</div>
+            <a class="stat-link" th:href="@{/students}">Manage Students &rarr;</a>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <span>Active Courses</span>
+                <span>📚</span>
+            </div>
+            <div class="stat-value" th:text="${courseCount}">0</div>
+            <a class="stat-link" th:href="@{/courses}">Manage Courses &rarr;</a>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <span>Departments</span>
+                <span>🏢</span>
+            </div>
+            <div class="stat-value" th:text="${departmentCount}">0</div>
+            <a class="stat-link" th:href="@{/departments}">Manage Departments &rarr;</a>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <span>Faculty Members</span>
+                <span>👨‍🏫</span>
+            </div>
+            <div class="stat-value" th:text="${facultyCount}">0</div>
+            <a class="stat-link" th:href="@{/faculty}">Manage Faculty &rarr;</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Quick Actions</h2>
+        <div style="display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap;">
+            <a class="btn btn-primary" th:href="@{/add-student}">+ Enroll New Student</a>
+            <a class="btn btn-primary" th:href="@{/add-course}">+ Create Course</a>
+            <a class="btn btn-primary" th:href="@{/add-department}">+ Add Department</a>
+            <a class="btn btn-primary" th:href="@{/add-faculty}">+ Register Faculty</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${faculty.id == 0 ? 'Register Faculty' : 'Edit Faculty'} + ' - Campus Management System'">Faculty Form</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/dashboard}">
+        <span>🏛️</span> Campus Management System
+    </a>
+    <ul class="navbar-nav">
+        <li><a th:href="@{/dashboard}">Dashboard</a></li>
+        <li><a th:href="@{/students}">Students</a></li>
+        <li><a th:href="@{/courses}">Courses</a></li>
+        <li><a th:href="@{/departments}">Departments</a></li>
+        <li><a th:href="@{/faculty}" class="active">Faculty</a></li>
+    </ul>
+</nav>
+
+<div class="form-container">
+    <h1 class="page-title" th:text="${faculty.id == 0 ? 'Register Faculty Member' : 'Edit Faculty Details'}">Faculty Form</h1>
+    <p class="page-subtitle" style="margin-bottom: 24px;">Enter teaching staff and faculty member credentials.</p>
+
+    <form th:action="@{/save-faculty}" method="post">
+        <input type="hidden" name="id" th:value="${faculty.id}">
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="facultyId">Faculty Employee ID *</label>
+                <input type="text" id="facultyId" name="facultyId" th:value="${faculty.facultyId}" placeholder="e.g. FAC-202" required>
+            </div>
+            <div class="form-group">
+                <label for="designation">Academic Designation *</label>
+                <input type="text" id="designation" name="designation" th:value="${faculty.designation}" placeholder="e.g. Associate Professor" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" name="name" th:value="${faculty.name}" placeholder="e.g. Dr. John von Neumann" required>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="email">Faculty Email *</label>
+                <input type="email" id="email" name="email" th:value="${faculty.email}" placeholder="faculty@campus.edu" required>
+            </div>
+            <div class="form-group">
+                <label for="officeRoom">Office / Cabin Room</label>
+                <input type="text" id="officeRoom" name="officeRoom" th:value="${faculty.officeRoom}" placeholder="e.g. Block B, 204">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="department">Department *</label>
+            <input type="text" id="department" name="department" th:value="${faculty.department}" placeholder="e.g. Computer Science" required list="deptList">
+            <datalist id="deptList">
+                <option th:each="dept : ${departments}" th:value="${dept.name}" th:text="${dept.name}"></option>
+            </datalist>
+        </div>
+
+        <div class="form-actions">
+            <a class="btn btn-secondary" th:href="@{/faculty}">Cancel</a>
+            <button type="submit" class="btn btn-primary" th:text="${faculty.id == 0 ? 'Save Faculty' : 'Update Faculty'}">Save</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

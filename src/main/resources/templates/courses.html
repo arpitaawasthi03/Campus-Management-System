@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - Campus Management System</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/dashboard}">
+        <span>🏛️</span> Campus Management System
+    </a>
+    <ul class="navbar-nav">
+        <li><a th:href="@{/dashboard}">Dashboard</a></li>
+        <li><a th:href="@{/students}">Students</a></li>
+        <li><a th:href="@{/courses}" class="active">Courses</a></li>
+        <li><a th:href="@{/departments}">Departments</a></li>
+        <li><a th:href="@{/faculty}">Faculty</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="header-row">
+        <div>
+            <h1 class="page-title">Course Catalog</h1>
+            <p class="page-subtitle">Academic curriculum and active courses offering</p>
+        </div>
+        <a class="btn btn-primary" th:href="@{/add-course}">+ Create New Course</a>
+    </div>
+
+    <div class="table-responsive">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Course Code</th>
+                <th>Course Name</th>
+                <th>Department</th>
+                <th>Credits</th>
+                <th>Instructor</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(courses)}">
+                <td colspan="8" class="empty-state">No courses registered yet. Click "Create New Course" above.</td>
+            </tr>
+            <tr th:each="course : ${courses}">
+                <td th:text="${course.id}">1</td>
+                <td><strong th:text="${course.courseCode}">CS101</strong></td>
+                <td th:text="${course.courseName}">Data Structures &amp; Algorithms</td>
+                <td><span class="badge badge-dept" th:text="${course.department}">Computer Science</span></td>
+                <td><span class="badge badge-sem" th:text="${course.credits} + ' Credits'">4 Credits</span></td>
+                <td th:text="${course.instructor}">Dr. Alice Smith</td>
+                <td th:text="${course.description}" style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Overview of data structures</td>
+                <td>
+                    <div class="actions">
+                        <a class="btn btn-secondary btn-sm" th:href="@{/edit-course(id=${course.id})}">Edit</a>
+                        <a class="btn btn-danger btn-sm" th:href="@{/delete-course(id=${course.id})}"
+                           onclick="return confirm('Are you sure you want to delete this course?');">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

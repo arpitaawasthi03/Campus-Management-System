@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${department.id == 0 ? 'Add Department' : 'Edit Department'} + ' - Campus Management System'">Department Form</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/dashboard}">
+        <span>🏛️</span> Campus Management System
+    </a>
+    <ul class="navbar-nav">
+        <li><a th:href="@{/dashboard}">Dashboard</a></li>
+        <li><a th:href="@{/students}">Students</a></li>
+        <li><a th:href="@{/courses}">Courses</a></li>
+        <li><a th:href="@{/departments}" class="active">Departments</a></li>
+        <li><a th:href="@{/faculty}">Faculty</a></li>
+    </ul>
+</nav>
+
+<div class="form-container">
+    <h1 class="page-title" th:text="${department.id == 0 ? 'Register Academic Department' : 'Edit Department'}">Department Form</h1>
+    <p class="page-subtitle" style="margin-bottom: 24px;">Enter departmental administration details.</p>
+
+    <form th:action="@{/save-department}" method="post">
+        <input type="hidden" name="id" th:value="${department.id}">
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="code">Department Code *</label>
+                <input type="text" id="code" name="code" th:value="${department.code}" placeholder="e.g. CSE" required>
+            </div>
+            <div class="form-group">
+                <label for="building">Campus Building</label>
+                <input type="text" id="building" name="building" th:value="${department.building}" placeholder="e.g. Science Complex, Wing B">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="name">Department Name *</label>
+            <input type="text" id="name" name="name" th:value="${department.name}" placeholder="e.g. Computer Science &amp; Engineering" required>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="headOfDepartment">Head of Department (HOD)</label>
+                <input type="text" id="headOfDepartment" name="headOfDepartment" th:value="${department.headOfDepartment}" placeholder="e.g. Dr. Ada Lovelace">
+            </div>
+            <div class="form-group">
+                <label for="contactEmail">Department Email</label>
+                <input type="email" id="contactEmail" name="contactEmail" th:value="${department.contactEmail}" placeholder="cs@campus.edu">
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <a class="btn btn-secondary" th:href="@{/departments}">Cancel</a>
+            <button type="submit" class="btn btn-primary" th:text="${department.id == 0 ? 'Save Department' : 'Update Department'}">Save</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

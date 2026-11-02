@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty - Campus Management System</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/dashboard}">
+        <span>🏛️</span> Campus Management System
+    </a>
+    <ul class="navbar-nav">
+        <li><a th:href="@{/dashboard}">Dashboard</a></li>
+        <li><a th:href="@{/students}">Students</a></li>
+        <li><a th:href="@{/courses}">Courses</a></li>
+        <li><a th:href="@{/departments}">Departments</a></li>
+        <li><a th:href="@{/faculty}" class="active">Faculty</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="header-row">
+        <div>
+            <h1 class="page-title">Faculty Directory</h1>
+            <p class="page-subtitle">Professors, lecturers, and academic faculty members</p>
+        </div>
+        <a class="btn btn-primary" th:href="@{/add-faculty}">+ Register Faculty</a>
+    </div>
+
+    <div class="table-responsive">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Faculty ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Designation</th>
+                <th>Office Room</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(facultyList)}">
+                <td colspan="8" class="empty-state">No faculty members found. Click "Register Faculty" above.</td>
+            </tr>
+            <tr th:each="faculty : ${facultyList}">
+                <td th:text="${faculty.id}">1</td>
+                <td><strong th:text="${faculty.facultyId}">FAC-1001</strong></td>
+                <td th:text="${faculty.name}">Prof. Grace Hopper</td>
+                <td th:text="${faculty.email}">ghopper@campus.edu</td>
+                <td><span class="badge badge-dept" th:text="${faculty.department}">Computer Science</span></td>
+                <td><strong th:text="${faculty.designation}">Professor</strong></td>
+                <td th:text="${faculty.officeRoom}">Room 402</td>
+                <td>
+                    <div class="actions">
+                        <a class="btn btn-secondary btn-sm" th:href="@{/edit-faculty(id=${faculty.id})}">Edit</a>
+                        <a class="btn btn-danger btn-sm" th:href="@{/delete-faculty(id=${faculty.id})}"
+                           onclick="return confirm('Are you sure you want to delete this faculty record?');">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
